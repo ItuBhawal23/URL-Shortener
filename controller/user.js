@@ -33,9 +33,10 @@ const handleUserLogin = async (req, res) => {
     return res.redirect("/login");
   }
 
-  const sessionId = randomUUID();
+  // const sessionId = randomUUID();
+  // setUserSession(sessionId, user);
 
-  setUserSession(sessionId, user);
+  const sessionId = setUserSession(user);
   res.cookie("sessionId", sessionId, { httpOnly: true });
 
   // return res.status(200).json({ message: "Login successful" });

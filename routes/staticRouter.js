@@ -1,8 +1,9 @@
 const express = require("express");
+const { restrictToLoggedInUser } = require("../middlewares/auth");
 
 const router = express();
 
-router.get("/", (req, res) => {
+router.get("/", restrictToLoggedInUser, (req, res) => {
   return res.render("home");
 });
 
