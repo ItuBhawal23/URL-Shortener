@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const User = require("../models/user");
 const { randomUUID } = require("crypto");
 const { setUserSession } = require("../services/auth");
 
@@ -33,14 +33,18 @@ const handleUserLogin = async (req, res) => {
     return res.redirect("/login");
   }
 
-  const sessionId = randomUUID();
+  // const sessionId = randomUUID();
+  // setUserSession(sessionId, user);
 
-  setUserSession(sessionId, user);
-  res.cookie("sessionId", sessionId, { httpOnly: true });
+  const sessionId = setUserSession(user);
+  // res.cookie("sessionId", sessionId, { httpOnly: true });
+  // res.headers["Authentication"] = `Bearer ${sessionId}`;
 
   // return res.status(200).json({ message: "Login successful" });
   // return res.render("home");
-  return res.redirect("/");
+  // return res.redirect("/");
+
+  return res.json({token: sessionId})
 };
 
 module.exports = {
